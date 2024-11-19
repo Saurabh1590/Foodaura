@@ -6,18 +6,19 @@ import About from "./components/About";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Contact from "./components/Contact";
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
-
-
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import appStore from "./utils/appStore";
 
 const AppLayout = () => {
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </Provider>
   );
 };
 

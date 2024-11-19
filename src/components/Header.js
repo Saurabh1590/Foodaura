@@ -4,22 +4,27 @@ import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 import logo from "../utils/image/logo1.png";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
-
   const onlineStatus = useOnlineStatus();
+  const { loggedInUser } = useContext(UserContext);
 
-  const {loggedInUser} = useContext(UserContext);
-  // console.log(loggedInUser);
+  const cartItems = useSelector((store) => store.cart.items);
+
   return (
-    <div className="flex justify-between bg-white-100 shadow-lg h-20">
-      <div className="logo-container h-20 w-20">
-        <img className="w-full" src={logo} />
+    <div className="flex justify-between bg-white-100 shadow-lg h-20 w-full px-4 md:px-8 items-center">
+      <div className="logo-container w-12 h-12">
+        <img className="h-full w-full object-contain" src={logo} alt="Logo" />
       </div>
-      <div className="flex items-center">
-        <ul className="flex p-4 m-4">
-          <li className="px-4">Online Status: {onlineStatus ? "✅" : "🔴"}</li>
+      {/* Hamburger menu for small screens */}
+      <div className="block md:hidden">
+        <button className="text-2xl">☰</button>
+      </div>
+      <div className="hidden md:flex items-center">
+        <ul className="flex space-x-4">
+          <li className="px-2">Online Status: {onlineStatus ? "✅" : "🔴"}</li>
           <li className="mx-2">
             <Link to="/">Home</Link>
           </li>
@@ -29,25 +34,17 @@ const Header = () => {
           <li className="mx-2">
             <Link to="/contact">Contact</Link>
           </li>
-
-          <li className="mx-2">Cart</li>
+          <li className="mx-2 font-bold text-xl">Cart ({cartItems.length} items)</li>
           <button
-            className="login "
+            className="bg-blue-500 text-white px-3 py-1 rounded"
             onClick={() => {
-              btnNameReact === "Login"
-                ? setBtnNameReact("Logout")
-                : setBtnNameReact("Login");
+              setBtnNameReact((prev) =>
+                prev === "Login" ? "Logout" : "Login"
+              );
             }}
-          > <span className="material-symbols-outlined">
-          person
-          </span>
+          >
             {btnNameReact}
           </button>
-
-          {/* <li className="px-4 font-bold]]">
-            {loggedInUser}
-          </li> */}
-
         </ul>
       </div>
     </div>
