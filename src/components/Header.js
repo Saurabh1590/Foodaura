@@ -12,11 +12,14 @@ const Header = () => {
   const { loggedInUser } = useContext(UserContext);
 
   const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
 
   return (
     <div className="flex justify-between bg-white-100 shadow-lg h-20 w-full px-4 md:px-8 items-center">
-      <div className="logo-container w-12 h-12">
-        <img className="h-full w-full object-contain" src={logo} alt="Logo" />
+      <div className="logo-container w-20">
+        <Link to="/">
+          <img className="h-full w-full object-contain" src={logo} alt="Logo" />
+        </Link>
       </div>
       {/* Hamburger menu for small screens */}
       <div className="block md:hidden">
@@ -34,7 +37,9 @@ const Header = () => {
           <li className="mx-2">
             <Link to="/contact">Contact</Link>
           </li>
-          <li className="mx-2 font-bold text-xl">Cart ({cartItems.length} items)</li>
+          <li className="mx-2 font-bold text-xl">
+            <Link to="/cart">Cart ({cartItems.length} items)</Link>
+          </li>
           <button
             className="bg-blue-500 text-white px-3 py-1 rounded"
             onClick={() => {
