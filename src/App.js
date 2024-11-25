@@ -1,29 +1,3 @@
-(function() {
-  const cors_api_host = 'cors-anywhere.herokuapp.com';
-  const cors_api_url = `https://${cors_api_host}/`;
-
-  // Patch XMLHttpRequest
-  const open = XMLHttpRequest.prototype.open;
-  XMLHttpRequest.prototype.open = function() {
-      const args = [].slice.call(arguments);
-      const targetUrl = args[1];
-      if (!targetUrl.startsWith(cors_api_url)) {
-          args[1] = cors_api_url + targetUrl;
-      }
-      return open.apply(this, args);
-  };
-
-  // Patch fetch
-  const originalFetch = window.fetch;
-  window.fetch = function(url, options) {
-      if (!url.startsWith(cors_api_url)) {
-          url = cors_api_url + url;
-      }
-      return originalFetch(url, options);
-  };
-})();
-
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
