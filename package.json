@@ -5,7 +5,7 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "test": "test",
+    "test": "jest",
     "clean": "parcel clean"
   },
   "repository": {
